@@ -10,6 +10,9 @@ if __name__ == "__main__":
     mongodb = MongoClient(mongo_config["url"])
     db = mongodb[mongo_config["database"]]
     collection = db[mongo_config["collection"]]
+    print "-"*30 + "The following is the Environment information for The Test." + "-"*30
+    print json.dumps(config["env"], indent=4)
+    print "-"*30 + "The following is performance test result data." + "-"*30
     for document in collection.find():
         document.pop("_id")
         print json.dumps(document, indent=4)
