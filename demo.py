@@ -4,6 +4,7 @@ import json
 import time
 import itertools
 
+
 def calculate(nic_statistics_before, nic_statistics_after):
     # {'TX bytes': '0', 'RX bytes': '1022', 'TX packets': '0', 'RX packets': '4'}
     _before = {"TX bytes": 0, "RX bytes": 0}
