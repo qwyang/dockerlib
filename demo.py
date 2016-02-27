@@ -3,6 +3,7 @@ import perflib
 import json
 import time
 import itertools
+from pymongo import MongoClient
 
 
 def calculate(nic_statistics_before, nic_statistics_after):
@@ -71,7 +72,11 @@ def perf_test_tu(filepath, image="atf/perftest", container_num=2, perftool="netp
     results["container_num"] = container_num
     results["perf_cmd_example"] = perf_cmd
     print json.dumps(results, indent=4)
-    # mongolib.upload(results, db="container_performance")
+    mongo_config = config["env"]["mongodb"]
+    mongodb = MongoClient(mongo_config["url"])
+    db = mongodb[mongo_config["database"]]
+    collection = db[mongo_config["collection"]]
+    collection.insert_one(results)
     proxy.destroy_all_containers()
 
 
